@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="책 제목을 검색해 기본 정보와 10가지 사회적 주제 반영 점수를 시각화하는 문학 분석 도구">
+    <title>Book Lens | 책 주제 분석</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="intro-panel" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow" data-i18n="brand">Book Lens</p>
+          <h1 id="page-title" data-i18n="title">책 속 주제를 조사하고 <span class="keep">점수화합니다</span></h1>
+          <p class="intro-copy" data-i18n="intro">
+            책 제목을 입력하면 기본 정보, 10가지 검토 항목의 반영 점수, 총점 구간, 조사 근거를 한 화면에서 확인할 수 있습니다.
+          </p>
+        </div>
+
+        <div class="language-control" aria-label="언어 선택">
+          <label for="language-select" data-i18n="languageLabel">언어</label>
+          <select id="language-select" name="language-select">
+            <option value="ko">한국어</option>
+            <option value="en">English</option>
+            <option value="es">Español</option>
+          </select>
+        </div>
+
+        <form class="search-form" id="search-form">
+          <label for="book-query" data-i18n="searchLabel">책 제목</label>
+          <div class="search-row">
+            <input id="book-query" name="book-query" type="search" placeholder="예: 해리포터, 데미안, 1984" autocomplete="off" aria-autocomplete="list" aria-controls="suggestions-list">
+            <button id="search-button" type="submit" data-i18n="searchButton">검색</button>
+            <button class="ghost-button" id="sample-button" type="button" data-i18n="sampleButton">예시</button>
+          </div>
+          <div class="suggestions" id="suggestions-list" hidden></div>
+        </form>
+      </section>
+
+      <section class="notice-panel" id="notice-panel" hidden aria-live="polite">
+        <span class="loading-bar" aria-hidden="true"></span>
+      </section>
+      <section class="empty-panel" id="empty-panel">
+        <p class="eyebrow" data-i18n="emptyEyebrow">초기 상태</p>
+        <h2 data-i18n="emptyTitle">분석할 책 제목을 검색하세요</h2>
+        <p data-i18n="emptyCopy">
+          Open Library에서 책과 저자 정보를 찾고, Wikipedia/Wikidata 공개 자료로 요약과 저자 정보를 보강해 10가지 항목 점수를 산정합니다.
+        </p>
+      </section>
+
+      <section class="result-grid" id="result-grid" hidden aria-live="polite">
+        <article class="summary-panel">
+          <div class="panel-heading">
+            <p class="eyebrow" data-i18n="basicInfo">기본 정보</p>
+            <h2 id="book-title"></h2>
+          </div>
+          <dl class="info-list" id="info-list"></dl>
+        </article>
+
+        <article class="score-panel">
+          <div class="panel-heading horizontal">
+            <div>
+              <p class="eyebrow" data-i18n="total">총점</p>
+              <h2><span id="total-score"></span><span class="score-max"> / 100</span></h2>
+            </div>
+            <p class="range-label" id="range-label"></p>
+          </div>
+          <div class="range-band" id="range-band" aria-label="점수 구간"></div>
+        </article>
+
+        <article class="chart-panel">
+          <div class="panel-heading">
+            <p class="eyebrow" data-i18n="chartEyebrow">10가지 항목 점수</p>
+            <h2 data-i18n="chartTitle">반영도 그래프</h2>
+          </div>
+          <div class="chart" id="chart"></div>
+        </article>
+
+        <article class="evidence-panel">
+          <div class="panel-heading">
+            <p class="eyebrow" data-i18n="evidenceEyebrow">자료 조사 근거</p>
+            <h2 data-i18n="evidenceTitle">점수 산정 메모</h2>
+          </div>
+          <ul class="evidence-list" id="evidence-list"></ul>
+          <p class="method-note">
+            <span data-i18n="methodNote">점수는 문학 비평과 작품 설정에서 해당 주제가 얼마나 반복적으로 다뤄지는지를 기준으로 한 정성 평가입니다.</span>
+          </p>
+        </article>
+      </section>
+    </main>
+
+    <script type="module" src="./script.js"></script>
+  </body>
+</html>
